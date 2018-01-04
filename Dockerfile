@@ -32,3 +32,5 @@ RUN curl -LO https://github.com/kubeless/kubeless/releases/download/${KUBELESS_V
 
 #serverless
 RUN npm i -g serverless
+
+ENTRYPOINT /bin/ash

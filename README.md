@@ -5,7 +5,7 @@ Use this via https://hub.docker.com/r/ryuheechul/k8s-pack
 ## It is
 
 - based on https://hub.docker.com/r/airhelp/kops/
-- added other useful tools
+- added other useful tools [See Dockerfile](./Dockerfile)
 - used by https://github.com/ryuheechul/kops
 
 ## Tagging policy
