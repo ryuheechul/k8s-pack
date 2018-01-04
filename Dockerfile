@@ -1,11 +1,15 @@
-FROM airhelp/kops:1.8.0
+FROM airhelp/kops:1.8.0 as kops
+FROM node:8.9.4-alpine
 
 MAINTAINER ryuhcii@gmail.com
+
+COPY --from=kops /usr/local/bin/kubectl /usr/local/bin/kubectl
+COPY --from=kops /usr/local/bin/kops /usr/local/bin/kops
 
 ENV STERN_VERSION=1.6.0
 ENV KUBELESS_VERSION=v0.3.2
 
-RUN apk update && apk add vim curl python3 nodejs
+RUN apk update && apk add vim curl python3
 
 #vim
 RUN rm /usr/bin/vi && ln -s /usr/bin/vim /usr/bin/vi
@@ -17,7 +21,7 @@ RUN curl -LO https://github.com/wercker/stern/releases/download/${STERN_VERSION}
      && chmod +x /usr/local/bin/stern
 
 #kube-shell
-RUN pip3 install --upgrade pip && pip install kube-shell
+RUN pip3 install --upgrade pip && pip3 install kube-shell
 
 #kubeless
 RUN curl -LO https://github.com/kubeless/kubeless/releases/download/${KUBELESS_VERSION}/kubeless_linux-amd64.zip \
