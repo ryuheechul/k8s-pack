@@ -5,7 +5,7 @@ MAINTAINER ryuhcii@gmail.com
 ENV STERN_VERSION=1.6.0
 ENV KUBELESS_VERSION=v0.3.2
 
-RUN apk update && apk add vim curl python3
+RUN apk update && apk add vim curl python3 nodejs
 
 #vim
 RUN rm /usr/bin/vi && ln -s /usr/bin/vim /usr/bin/vi
@@ -25,3 +25,6 @@ RUN curl -LO https://github.com/kubeless/kubeless/releases/download/${KUBELESS_V
      && mkdir kubeless-bin && unzip kubeless_linux-amd64.zip -d kubeless-bin \
      && mv kubeless-bin/bundles/kubeless_linux-amd64/kubeless /usr/local/bin/ \
      && rm -rf kubeless-bin kubeless_linux-amd64.zip
+
+#serverless
+RUN npm i -g serverless
