@@ -9,7 +9,7 @@ COPY --from=kops /usr/local/bin/kops /usr/local/bin/kops
 ENV STERN_VERSION=1.6.0
 ENV KUBELESS_VERSION=v0.3.3
 
-RUN apk update && apk add vim curl python3
+RUN apk update && apk add bash vim curl python python3
 
 #vim
 RUN rm /usr/bin/vi && ln -s /usr/bin/vim /usr/bin/vi
