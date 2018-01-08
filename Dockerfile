@@ -11,7 +11,7 @@ ENV KUBELESS_VERSION=v0.3.3
 
 RUN apk --update add bash make curl build-base coreutils \
      openssl yajl-dev zlib-dev cyrus-sasl-dev openssl-dev \
-     vim python python3
+     zip vim python python3
 
 #vim
 RUN rm /usr/bin/vi && ln -s /usr/bin/vim /usr/bin/vi
