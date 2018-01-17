@@ -7,7 +7,7 @@ COPY --from=kops /usr/local/bin/kubectl /usr/local/bin/kubectl
 COPY --from=kops /usr/local/bin/kops /usr/local/bin/kops
 
 ENV STERN_VERSION=1.6.0
-ENV KUBELESS_VERSION=v0.3.3
+ENV KUBELESS_VERSION=v0.3.4
 
 RUN apk --update add bash make curl build-base coreutils \
      openssl yajl-dev zlib-dev cyrus-sasl-dev openssl-dev \
