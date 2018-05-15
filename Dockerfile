@@ -1,4 +1,4 @@
-FROM airhelp/kops:1.8.0 as kops
+FROM ryuheechul/docker-kops:patch-3 as kops
 FROM node:8.9.4-alpine
 
 MAINTAINER ryuhcii@gmail.com
@@ -7,7 +7,7 @@ COPY --from=kops /usr/local/bin/kubectl /usr/local/bin/kubectl
 COPY --from=kops /usr/local/bin/kops /usr/local/bin/kops
 
 ENV STERN_VERSION=1.6.0
-ENV KUBELESS_VERSION=v0.3.4
+ENV KUBELESS_VERSION=v0.6.0
 
 RUN apk --update add bash make curl build-base coreutils \
      openssl yajl-dev zlib-dev cyrus-sasl-dev openssl-dev \
