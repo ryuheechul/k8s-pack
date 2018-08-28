@@ -3,7 +3,7 @@ FROM node:8.9.4-alpine
 LABEL MAINTAINER=ryuhcii@gmail.com
 
 ENV KOPS_VERSION=1.10.0
-ENV KUBECTL_VERSION=v1.10.3
+ENV KUBECTL_VERSION=v1.10.7
 
 RUN apk --no-cache add ca-certificates \
   && apk --no-cache add --virtual build-dependencies curl \
