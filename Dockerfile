@@ -41,6 +41,6 @@ RUN curl -LO https://github.com/kubeless/kubeless/releases/download/${KUBELESS_V
      && rm -rf kubeless-bin kubeless_linux-amd64.zip
 
 #serverless
-RUN yarn add -g serverless
+RUN npm i -g serverless
 
 ENTRYPOINT /bin/ash
