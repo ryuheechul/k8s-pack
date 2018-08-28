@@ -1,10 +1,18 @@
-FROM airhelp/kops:1.9.0 as kops
 FROM node:8.9.4-alpine
 
-MAINTAINER ryuhcii@gmail.com
+LABEL MAINTAINER=ryuhcii@gmail.com
 
-COPY --from=kops /usr/local/bin/kubectl /usr/local/bin/kubectl
-COPY --from=kops /usr/local/bin/kops /usr/local/bin/kops
+ENV KOPS_VERSION=1.10.0
+ENV KUBECTL_VERSION=v1.10.7
+
+RUN apk --no-cache add ca-certificates \
+  && apk --no-cache add --virtual build-dependencies curl \
+  && curl -O --location --silent --show-error https://github.com/kubernetes/kops/releases/download/${KOPS_VERSION}/kops-linux-amd64 \
+  && mv kops-linux-amd64 /usr/local/bin/kops \
+  && curl -LO https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl \
+  && mv kubectl /usr/local/bin/kubectl \
+  && chmod +x /usr/local/bin/kops /usr/local/bin/kubectl \
+  && apk del --purge build-dependencies
 
 ENV STERN_VERSION=1.6.0
 ENV KUBELESS_VERSION=v0.6.0
@@ -33,6 +41,6 @@ RUN curl -LO https://github.com/kubeless/kubeless/releases/download/${KUBELESS_V
      && rm -rf kubeless-bin kubeless_linux-amd64.zip
 
 #serverless
-RUN npm i -g serverless
+RUN yarn add -g serverless
 
 ENTRYPOINT /bin/ash
