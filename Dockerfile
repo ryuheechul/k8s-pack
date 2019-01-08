@@ -2,8 +2,8 @@ FROM node:8.9.4-alpine
 
 LABEL MAINTAINER=ryuhcii@gmail.com
 
-ENV KOPS_VERSION=1.10.0
-ENV KUBECTL_VERSION=v1.10.7
+ENV KOPS_VERSION=1.10.1
+ENV KUBECTL_VERSION=v1.13.1
 
 RUN apk --no-cache add ca-certificates \
   && apk --no-cache add --virtual build-dependencies curl \
@@ -14,8 +14,8 @@ RUN apk --no-cache add ca-certificates \
   && chmod +x /usr/local/bin/kops /usr/local/bin/kubectl \
   && apk del --purge build-dependencies
 
-ENV STERN_VERSION=1.6.0
-ENV KUBELESS_VERSION=v0.6.0
+ENV STERN_VERSION=1.10.0
+ENV KUBELESS_VERSION=v1.0.1
 
 RUN apk --update add bash make curl build-base coreutils \
      openssl yajl-dev zlib-dev cyrus-sasl-dev openssl-dev \
