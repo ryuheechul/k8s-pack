@@ -9,7 +9,7 @@ RUN apk --no-cache add ca-certificates \
   && apk --no-cache add --virtual build-dependencies curl \
   && curl -O --location --silent --show-error https://github.com/kubernetes/kops/releases/download/${KOPS_VERSION}/kops-linux-amd64 \
   && mv kops-linux-amd64 /usr/local/bin/kops \
-  && curl -LO https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl \
+  && curl -LO https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl \
   && mv kubectl /usr/local/bin/kubectl \
   && chmod +x /usr/local/bin/kops /usr/local/bin/kubectl \
   && apk del --purge build-dependencies
@@ -42,5 +42,15 @@ RUN curl -LO https://github.com/kubeless/kubeless/releases/download/${KUBELESS_V
 
 #serverless
 RUN npm i -g serverless
+
+#terraform
+ENV TERRAFORM_VERSION=0.11.11
+ENV TERRAFORM_SHA256SUM=94504f4a67bad612b5c8e3a4b7ce6ca2772b3c1559630dfd71e9c519e3d6149c
+
+RUN curl https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip > terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
+    echo "${TERRAFORM_SHA256SUM}  terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > terraform_${TERRAFORM_VERSION}_SHA256SUMS && \
+    sha256sum -c terraform_${TERRAFORM_VERSION}_SHA256SUMS && \
+    unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /bin && \
+    rm -f terraform_${TERRAFORM_VERSION}_linux_amd64.zip
 
 ENTRYPOINT /bin/ash
