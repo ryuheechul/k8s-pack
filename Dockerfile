@@ -19,7 +19,7 @@ ENV KUBELESS_VERSION=v1.0.1
 
 RUN apk --update add bash make curl build-base coreutils \
      openssl yajl-dev zlib-dev cyrus-sasl-dev openssl-dev \
-     zip vim python python3
+     zip vim python python3 git
 
 #vim
 RUN rm /usr/bin/vi && ln -s /usr/bin/vim /usr/bin/vi
@@ -52,5 +52,9 @@ RUN curl https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform
     sha256sum -c terraform_${TERRAFORM_VERSION}_SHA256SUMS && \
     unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /bin && \
     rm -f terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+
+#fzf for searching history
+RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+RUN ~/.fzf/install --all
 
 ENTRYPOINT /bin/ash
