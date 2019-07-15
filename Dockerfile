@@ -5,6 +5,9 @@ LABEL MAINTAINER=ryuhcii@gmail.com
 ENV KOPS_VERSION=1.10.1
 ENV KUBECTL_VERSION=v1.13.1
 
+# use vi keybinding in bash
+RUN echo "set -o vi" >> ~/.bashrc
+
 RUN apk --no-cache add ca-certificates \
   && apk --no-cache add --virtual build-dependencies curl \
   && curl -O --location --silent --show-error https://github.com/kubernetes/kops/releases/download/${KOPS_VERSION}/kops-linux-amd64 \
@@ -56,9 +59,5 @@ RUN curl https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform
 # fzf for searching history
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 RUN ~/.fzf/install --all
-
-
-# use vi keybinding in bash
-RUN echo "set -o vi" >> ~/.bashrc
 
 ENTRYPOINT /bin/ash
