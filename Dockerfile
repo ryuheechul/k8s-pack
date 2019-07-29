@@ -2,6 +2,8 @@ FROM node:8.9.4-alpine
 
 LABEL MAINTAINER=ryuhcii@gmail.com
 
+ENV PS1="[k8s pack] $ "
+
 ENV KOPS_VERSION=1.10.1
 ENV KUBECTL_VERSION=v1.15.1
 ENV KREW_VERSION=v0.2.1
@@ -71,4 +73,4 @@ RUN ~/.fzf/install --all
 ENV PATH=/root/.krew/bin:$PATH
 RUN kubectl krew install get-all grep iexec ingress-nginx view-utilization
 
-ENTRYPOINT /bin/ash
+ENTRYPOINT /bin/bash
